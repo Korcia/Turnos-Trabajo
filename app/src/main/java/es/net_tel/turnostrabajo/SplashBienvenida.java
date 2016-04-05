@@ -1,21 +1,32 @@
 package es.net_tel.turnostrabajo;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.appcompat.*;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+//import android.widget.Toast;
 
 import com.google.android.gms.appindexing.Action;
 import com.google.android.gms.appindexing.AppIndex;
 import com.google.android.gms.common.api.GoogleApiClient;
 
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.TimeoutException;
+
 public class SplashBienvenida extends AppCompatActivity {
 
     private static int SPLASH_TIME_OUT = 2000;
+    public static final String CONFIG = "FicheroConfig";
+    private static final String TAG = "SplashBienvenida";
+
     /**
      * ATTENTION: This was auto-generated to implement the App Indexing API.
      * See https://g.co/AppIndexing/AndroidStudio for more information.
@@ -26,6 +37,7 @@ public class SplashBienvenida extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash_bienvenida);
+
 
         new Handler().postDelayed(new Runnable() {
 
@@ -39,11 +51,40 @@ public class SplashBienvenida extends AppCompatActivity {
                 // This method will be executed once the timer is over
                 // Start your app main activity
                 //Intent i = new Intent(WelcomeScreen.this, ItemListActivity.class);
-                Intent i = new Intent(SplashBienvenida.this, LoginActivity.class);
-                startActivity(i);
 
-                // close this activity
-                finish();
+                SharedPreferences shared;
+                shared = getSharedPreferences(CONFIG, Context.MODE_PRIVATE);
+                String pin = shared.getString("codigo", "fallo");
+                //Toast.makeText(getBaseContext(), "Codigo: " + pin, Toast.LENGTH_LONG).show();
+
+                if (shared.contains("codigo")) {
+                    try {
+                        new HttpGetTask(getApplicationContext()).execute(pin).get(2000, TimeUnit.MILLISECONDS);
+                        //Toast.makeText(getBaseContext(), "Codigo1: " + pin, Toast.LENGTH_LONG).show();
+                        if (HttpGetTask.getEstado_codigo() == "OK") {
+                            //Toast.makeText(getBaseContext(), "Codigo2: " + pin, Toast.LENGTH_LONG).show();
+                            Intent i = new Intent(SplashBienvenida.this, CalendarioActivity.class);
+                            startActivity(i);
+                            finish();
+                        } else {
+                            Intent i = new Intent(SplashBienvenida.this, LoginActivity.class);
+                            startActivity(i);
+                            finish();
+                        }
+                    } catch (InterruptedException exception) {
+                        Log.e(TAG, "InterruptedException");
+                    } catch (TimeoutException exception) {
+                        Log.e(TAG, "TimeOutException");
+                    } catch (ExecutionException exception) {
+                        Log.e(TAG, "ExecutionException");
+                    }
+                } else {
+                    Intent i = new Intent(SplashBienvenida.this, LoginActivity.class);
+                    startActivity(i);
+                    // close this activity
+                    finish();
+                }
+
             }
         }, SPLASH_TIME_OUT);
 

@@ -22,7 +22,7 @@ public class CalendarioActivity extends AppCompatActivity {
     private static final String TAG = "CalendarioActivity";
     private int GRUPOS = 7;
     private int PORGRUPO = 2;
-    private int LONGPATRON = 62;
+    private int LONGPATRON = 98;
     private int TIPOSTURNOS = 3;
     private int MAXYEAR = 0x834;
     private String diauno = "07/03/2016";
@@ -50,8 +50,8 @@ public class CalendarioActivity extends AppCompatActivity {
                 //                + " / " + year, Toast.LENGTH_LONG).show();
                 fecha_seleccionada = dayOfMonth + "/" + (month + 1) + "/" + year;
                 long dias_desde = 1 + Daybetween("7/3/2016", fecha_seleccionada, "dd/MM/yyyy");
-                resultado_turnos = CalcularTurno((int)dias_desde);
                 //Toast.makeText(getBaseContext(), "Dias:\n\n" + dias_desde, Toast.LENGTH_LONG).show();
+                resultado_turnos = CalcularTurno((int)dias_desde);
                 Log.i(TAG, "Hello " + (month + 1));
                 Intent i = new Intent(CalendarioActivity.this, TurnosActivity.class);
                 i.putExtra("primeraKey", dias_desde);
@@ -80,7 +80,7 @@ public class CalendarioActivity extends AppCompatActivity {
     }
     public String[] CalcularTurno(int diaspasados) {
 
-        String[] tipoturno = {"Mañana", "Tarde", "Noche"};
+        //String[] tipoturno = {"Mañana", "Tarde", "Noche"};
         String[][] miembros = {{"Antonia", "Paqui"}, {"Chon", "Mariló"}, {"Fran", "Mara"}, {"Eli", "Mónica"}, {"Ismael", "Carmen"}, {"Mª del Carmen", "Marta"}, {"Sandra", "Sonia"}};
         String[] resultado = new String[10];
         //String [] resultado_tarde = new resultado_tarde [4];

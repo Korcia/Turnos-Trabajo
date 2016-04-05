@@ -19,20 +19,35 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
 
 public class TurnosActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        String fecha = getIntent().getExtras().getString("segundaKey","defaultKey");
+        String fecha = getIntent().getExtras().getString("segundaKey", "defaultKey");
         String[] datos = getIntent().getExtras().getStringArray("terceraKey");
+
         setContentView(R.layout.activity_turnos);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
         TextView t=(TextView)findViewById(R.id.fechaView);
-        t.setText(fecha);
+        SimpleDateFormat sdf = new SimpleDateFormat(" EEEE dd 'de' MMMM 'de' yyyy", new Locale("es","ES"));
+        SimpleDateFormat formateador = new SimpleDateFormat("dd/MM/yyyy");
+        try {
+            Date fecha2 = formateador.parse(fecha);
+            String fecha_larga = sdf.format(fecha2);
+            t.setText(fecha_larga);
+        } catch (ParseException e) {
+            Log.e("TAG", "error");
+        }
+
+        //t.setText(fecha);
         TextView emp01 = (TextView)findViewById(R.id.mananaempleado1View);
         TextView emp02 = (TextView)findViewById(R.id.mananaempleado2View);
         TextView emp03 = (TextView)findViewById(R.id.mananaempleado3View);
@@ -72,9 +87,10 @@ public class TurnosActivity extends AppCompatActivity {
                 } catch (IOException e) {
                     Log.e("GREC", e.getMessage(), e);
                 }
-                openScreenshot(imagePath);
-                Snackbar.make(view, "Enviar los turnos", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                TextView t2=(TextView)findViewById(R.id.fechaView);
+                String fecha_larga2 = t2.getText().toString();
+                openScreenshot(imagePath, fecha_larga2);
+                //Snackbar.make(view, "Enviar los turnos", Snackbar.LENGTH_LONG).setAction("Action", null).show();
             }
         });
     }
@@ -91,17 +107,15 @@ public class TurnosActivity extends AppCompatActivity {
         rootView.setDrawingCacheEnabled(true);
         return rootView.getDrawingCache();
     }
-    private void openScreenshot(File imageFile) {
+    private void openScreenshot(File imageFile, String fecha_larga) {
         Intent intent = new Intent(Intent.ACTION_SEND);
         Uri uri = Uri.fromFile(imageFile);
         //intent.setDataAndType(uri, "image/*");
         intent.setPackage("com.whatsapp");
-        intent.putExtra(Intent.EXTRA_TEXT, "Estos son los turnos");
+        intent.putExtra(Intent.EXTRA_TEXT, "Estos son los turnos del " + fecha_larga);
         intent.putExtra(Intent.EXTRA_STREAM, uri);
         intent.setType("image/jpeg");
         intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-        intent.putExtra(Intent.EXTRA_TEXT, "Estos son los turnos de");
-        //intent.setAction(Intent.ACTION_SEND);
         //Intent.createChooser(intent, "Enviar");
         try {
             startActivity(intent);

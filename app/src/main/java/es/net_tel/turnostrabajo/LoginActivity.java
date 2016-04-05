@@ -27,7 +27,9 @@ import butterknife.ButterKnife;
 public class LoginActivity extends AppCompatActivity {
     private static final String TAG = "LoginActivity";
     private static final int REQUEST_SIGNUP = 0;
+    public static final String CONFIG = "FicheroConfig";
 
+/*
     public static String getEstado_codigo() {
         return estado_codigo;
     }
@@ -37,6 +39,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private static String estado_codigo = "";
+*/
 
     //@Bind(R.id.input_email) EditText _emailText;
     @Bind(R.id.input_password)
@@ -56,7 +59,7 @@ public class LoginActivity extends AppCompatActivity {
             public void onClick(View v) {
                 String password = _passwordText.getText().toString();
                 try {
-                    new HttpGetTask().execute(password).get(2000, TimeUnit.MILLISECONDS);
+                    new HttpGetTask(getApplicationContext()).execute(password).get(2000, TimeUnit.MILLISECONDS);
                 } catch (InterruptedException exception) {
                     Log.e(TAG, "InterruptedException");
                 } catch (TimeoutException exception) {
@@ -66,7 +69,19 @@ public class LoginActivity extends AppCompatActivity {
                 }
 
                 //login();
-                if (getEstado_codigo() == "OK") {
+                if (HttpGetTask.getEstado_codigo() == "OK") {
+                    SharedPreferences settings = getSharedPreferences(CONFIG, 0);
+                    SharedPreferences.Editor editor = settings.edit();
+                    editor.putString("codigo", password);
+                    editor.commit();
+
+                    //SharedPreferences shared;
+                    //shared = getSharedPreferences("es.net_tel", Context.MODE_PRIVATE);
+                    //shared.edit().putBoolean("first_time",true).apply();
+                    //shared.edit().putString("codigo", password);
+                    //Toast.makeText(getBaseContext(), "Codigo: " + password, Toast.LENGTH_LONG).show();
+                    //shared.edit().apply();
+
                     Intent i = new Intent(LoginActivity.this, CalendarioActivity.class);
                     startActivity(i);
                     finish();
@@ -158,6 +173,7 @@ public class LoginActivity extends AppCompatActivity {
         return valid;
     }
 
+/*
     private class HttpGetTask extends AsyncTask<String, Void, String> {
 
         private static final String TAG = "HttpGetTask";
@@ -216,5 +232,6 @@ public class LoginActivity extends AppCompatActivity {
             //return;
         }
     }
+*/
 }
 
