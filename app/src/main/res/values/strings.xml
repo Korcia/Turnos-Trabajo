@@ -1,9 +1,9 @@
 <resources>
     <string name="app_name">Turnos Trabajo</string>
     <string name="action_settings">Ajustes</string>
-    <string name="title_activity_calendario">Calendario</string>
+    <string name="title_activity_calendario">Calendario El Copo</string>
     <string name="title_activity_splash_bienvenida">Bienvenida</string>
-    <string name="title_activity_turnos">Turnos</string>
+    <string name="title_activity_turnos">Turnos El Copo</string>
     <string name="codigo_activity_login">Código</string>
     <string name="enviar_activity_login">Enviar</string>
     <string name="introduce_activity_login">Introduce tu código</string>
