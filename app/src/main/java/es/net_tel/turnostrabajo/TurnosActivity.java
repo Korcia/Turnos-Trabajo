@@ -1,14 +1,24 @@
 package es.net_tel.turnostrabajo;
 
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 
 public class TurnosActivity extends AppCompatActivity {
 
@@ -48,6 +58,21 @@ public class TurnosActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                View v1 = getWindow().getDecorView().getRootView();
+                Bitmap bmap = screenShot(v1);
+                File imagePath = new File(Environment.getExternalStorageDirectory() + "/screenshot.jpg");
+                try {
+                    FileOutputStream outputStream = new FileOutputStream(imagePath);
+                    int quality = 50;
+                    bmap.compress(Bitmap.CompressFormat.JPEG, quality, outputStream);
+                    outputStream.flush();
+                    outputStream.close();
+                } catch (FileNotFoundException e) {
+                    Log.e("GREC", e.getMessage(), e);
+                } catch (IOException e) {
+                    Log.e("GREC", e.getMessage(), e);
+                }
+                openScreenshot(imagePath);
                 Snackbar.make(view, "Enviar los turnos", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
             }
@@ -60,6 +85,31 @@ public class TurnosActivity extends AppCompatActivity {
         Canvas canvas = new Canvas(bitmap);
         view.draw(canvas);
         return bitmap;
+    }
+    public Bitmap takeScreenshot() {
+        View rootView = findViewById(android.R.id.content).getRootView();
+        rootView.setDrawingCacheEnabled(true);
+        return rootView.getDrawingCache();
+    }
+    private void openScreenshot(File imageFile) {
+        Intent intent = new Intent(Intent.ACTION_SEND);
+        Uri uri = Uri.fromFile(imageFile);
+        //intent.setDataAndType(uri, "image/*");
+        intent.setPackage("com.whatsapp");
+        intent.putExtra(Intent.EXTRA_TEXT, "Estos son los turnos");
+        intent.putExtra(Intent.EXTRA_STREAM, uri);
+        intent.setType("image/jpeg");
+        intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+        intent.putExtra(Intent.EXTRA_TEXT, "Estos son los turnos de");
+        //intent.setAction(Intent.ACTION_SEND);
+        //Intent.createChooser(intent, "Enviar");
+        try {
+            startActivity(intent);
+        } catch (android.content.ActivityNotFoundException ex) {
+            //ToastHelper.MakeShortText("Whatsapp have not been installed.");
+            Toast.makeText(getBaseContext(), "Whatsapp no ha sido instalado", Toast.LENGTH_LONG).show();
+        }
+        //startActivity(Intent.createChooser(intent, "Enviar"));
     }
 
 }
