@@ -10,4 +10,6 @@
     <string name="manana_turnos_activity">Mañana</string>
     <string name="tarde_turnos_activity">Tarde</string>
     <string name="noche_turnos_activity">Noche</string>
+    <string name="title_activity_material_calendario">Calendario El Copo</string>
+    <string name="texto_grande">Usar Texto Grande</string>
 </resources>

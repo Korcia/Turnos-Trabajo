@@ -7,6 +7,7 @@ import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -52,6 +53,8 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         ButterKnife.bind(this);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
 
         _loginButton.setOnClickListener(new View.OnClickListener() {
 
@@ -82,7 +85,7 @@ public class LoginActivity extends AppCompatActivity {
                     //Toast.makeText(getBaseContext(), "Codigo: " + password, Toast.LENGTH_LONG).show();
                     //shared.edit().apply();
 
-                    Intent i = new Intent(LoginActivity.this, CalendarioActivity.class);
+                    Intent i = new Intent(LoginActivity.this, MaterialCalendarioActivity.class);
                     startActivity(i);
                     finish();
                 } else {

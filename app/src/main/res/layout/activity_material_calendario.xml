@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    tools:context="es.net_tel.turnostrabajo.TurnosActivity">
+    tools:context="es.net_tel.turnostrabajo.MaterialCalendarioActivity">
 
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
@@ -21,7 +21,7 @@
 
     </android.support.design.widget.AppBarLayout>
 
-    <include layout="@layout/content_turnos" />
+    <include layout="@layout/content_material_calendario" />
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab"
@@ -29,8 +29,6 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
         android:layout_margin="@dimen/fab_margin"
-        app:elevation="6dp"
-        app:pressedTranslationZ="12dp"
-        android:src="@drawable/ic_whatsapp_white" />
+        android:src="@drawable/ic_calendar_plus_white" />
 
 </android.support.design.widget.CoordinatorLayout>

@@ -63,7 +63,7 @@ public class SplashBienvenida extends AppCompatActivity {
                         //Toast.makeText(getBaseContext(), "Codigo1: " + pin, Toast.LENGTH_LONG).show();
                         if (HttpGetTask.getEstado_codigo() == "OK") {
                             //Toast.makeText(getBaseContext(), "Codigo2: " + pin, Toast.LENGTH_LONG).show();
-                            Intent i = new Intent(SplashBienvenida.this, CalendarioActivity.class);
+                            Intent i = new Intent(SplashBienvenida.this, MaterialCalendarioActivity.class);
                             startActivity(i);
                             finish();
                         } else {
