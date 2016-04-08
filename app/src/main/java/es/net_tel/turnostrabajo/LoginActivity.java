@@ -76,14 +76,7 @@ public class LoginActivity extends AppCompatActivity {
                     SharedPreferences settings = getSharedPreferences(CONFIG, 0);
                     SharedPreferences.Editor editor = settings.edit();
                     editor.putString("codigo", password);
-                    editor.commit();
-
-                    //SharedPreferences shared;
-                    //shared = getSharedPreferences("es.net_tel", Context.MODE_PRIVATE);
-                    //shared.edit().putBoolean("first_time",true).apply();
-                    //shared.edit().putString("codigo", password);
-                    //Toast.makeText(getBaseContext(), "Codigo: " + password, Toast.LENGTH_LONG).show();
-                    //shared.edit().apply();
+                    editor.commit(); //considerar editor.apply()
 
                     Intent i = new Intent(LoginActivity.this, MaterialCalendarioActivity.class);
                     startActivity(i);
@@ -176,65 +169,5 @@ public class LoginActivity extends AppCompatActivity {
         return valid;
     }
 
-/*
-    private class HttpGetTask extends AsyncTask<String, Void, String> {
-
-        private static final String TAG = "HttpGetTask";
-
-        // Get your own user name at http://www.geonames.org/login
-        private static final String URL = "http://turnos.sites.djangoeurope.com/users/";
-
-        @Override
-        protected String doInBackground(String... params) {
-            String kuku = params[0];
-            String data = "";
-            String token = "Token " + kuku;
-            HttpURLConnection httpUrlConnection = null;
-            SharedPreferences shared;
-
-            try {
-                httpUrlConnection = (HttpURLConnection) new URL(URL).openConnection();
-                httpUrlConnection.setRequestMethod("GET");
-//                httpUrlConnection.setRequestProperty("Content-Type", "application/json");
-
-                httpUrlConnection.setRequestProperty("Authorization", token);
-                httpUrlConnection.connect();
-                int statuscode = httpUrlConnection.getResponseCode();
-                Log.e(TAG, " " + statuscode);
-                if (statuscode == 200) {
-                    data = "OK";
-                    setEstado_codigo(data);
-                    shared=getSharedPreferences("es.net_tel.turnostrabajo", Context.MODE_PRIVATE);
-                    shared.edit().putBoolean("first_time",false).apply();
-                    shared.edit().putString("codigo", "6278");
-                    shared.edit().apply();
-                    Log.d(TAG, "HttpGetTask: OK " + token);
-                } else {
-                    data = "NO";
-                    setEstado_codigo(data);
-                    Log.d(TAG, "HttpGetTask: NO OK " + token);
-                }
-
-                //InputStream in = new BufferedInputStream(httpUrlConnection.getInputStream());
-                //data = readStream(in);
-
-            } catch (MalformedURLException exception) {
-                Log.e(TAG, "MalformedURLException");
-            } catch (IOException exception) {
-                Log.e(TAG, "IOException");
-            } finally {
-                if (null != httpUrlConnection)
-                    httpUrlConnection.disconnect();
-            }
-            return data;
-        }
-
-        @Override
-        protected void onPostExecute(String result) {
-            setEstado_codigo(result);
-            //return;
-        }
-    }
-*/
 }
 
