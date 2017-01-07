@@ -16,4 +16,12 @@
     <color name="white">#FFFFFF</color>
     <color name="TurnosGris">#FF666666</color>
     <color name="turnosazul">#457cd5</color>
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorAccent">#FF4081</color>
+    <color name="colorGreenBtn">#99CD00</color>
+    <color name="colorOrangeBtn">#FFBB32</color>
+    <color name="colorBlueBtn">#33B5E6</color>
+    <color name="colorRedBtn">#FF4445</color>
+
 </resources>

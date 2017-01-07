@@ -7,11 +7,10 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Button;
 import android.widget.Toast;
@@ -22,17 +21,26 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
-import java.util.TimeZone;
+
+import es.net_tel.turnostrabajo.adapters.ParejaAdapter;
+import es.net_tel.turnostrabajo.adapters.TurnoAdapter;
 
 
 public class TurnosActivity extends AppCompatActivity {
 
     static String fecha;
     static String[] datos;
+    public ArrayList<String> turnosLista = null;
+    public ArrayList<String> parejasLista = null;
+    private ListView mListView;
+    private ListView pListView;
+    //MyCustomAdapter dataAdapter = null;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,9 +49,37 @@ public class TurnosActivity extends AppCompatActivity {
         fecha = fechaprincipal;
         datos = Arrays.copyOf(datosprincipal,datosprincipal.length);
 
-        setContentView(R.layout.activity_turnos);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+
+        //setContentView(R.layout.activity_turnos);
+        setContentView(R.layout.activity_turnos_listview);
+        mListView = (ListView) findViewById(R.id.turnos_listView);
+        pListView = (ListView) findViewById(R.id.parejas_listView);
+        //Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        //setSupportActionBar(toolbar);
+
+        turnosLista = new ArrayList<>();
+        parejasLista = new ArrayList<>();
+        int n = 2;
+        for (String s : datosprincipal) {
+            if (n % 2 == 1) {
+                turnosLista.add(s);
+            } else {
+                parejasLista.add(s);
+            }
+            n++;
+        }
+
+        //final ArrayAdapter adapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, turnosLista);
+        //mListView.setAdapter(adapter);
+        final ParejaAdapter paradapter = new ParejaAdapter(this, parejasLista);
+        pListView.setAdapter(paradapter);
+        final TurnoAdapter adapter = new TurnoAdapter(this, turnosLista);
+        mListView.setAdapter(adapter);
+
+        //listView.setAdapter(new ArrayAdapter<String>(getApplicationContext(), R.layout.activity_turnos_listview, R.id.fila_turno, turnosLista));
+        //dataAdapter = new MyCustomAdapter(getApplicationContext(), R.layout.pedido_info, turnosLista);
+
+        //listView.setAdapter(dataAdapter);
 
         rellenaCampos(fecha, datos);
 
@@ -80,10 +116,31 @@ public class TurnosActivity extends AppCompatActivity {
                 MaterialCalendarioActivity mat = new MaterialCalendarioActivity();
                 String fec = unDiaMenos(fecha);
                 fecha = fec;
-                long dias_desde = 1 + mat.Daybetween("7/3/2016", fec, "dd/MM/yyyy");
+                long dias_desde = 1 + mat.Daybetween("1/11/2016", fec, "dd/MM/yyyy");
                 String[] res = mat.CalcularTurno((int) dias_desde);
                 datos = res;
                 rellenaCampos(fec, res);
+
+                ArrayList<String> parejas_datos = new ArrayList<>();
+                ArrayList<String> turnos_datos = new ArrayList<>();
+
+                //ArrayList<String> misdatos = new ArrayList<>();
+                int i = 2;
+                for (String s : res) {
+                    if (i % 2 ==1) {
+                        turnos_datos.add(s);
+                    } else {
+                        parejas_datos.add(s);
+                    }
+                    i++;
+                    //misdatos.add(s);
+                }
+                adapter.getData().clear();
+                paradapter.getData().clear();
+                adapter.getData().addAll(turnos_datos);
+                paradapter.getData().addAll(parejas_datos);
+                adapter.notifyDataSetChanged();
+                paradapter.notifyDataSetChanged();
                 //onRestart();
             }
         });
@@ -95,10 +152,30 @@ public class TurnosActivity extends AppCompatActivity {
                 MaterialCalendarioActivity mat = new MaterialCalendarioActivity();
                 String fec = unDiaMas(fecha);
                 fecha = fec;
-                long dias_desde = 1 + mat.Daybetween("7/3/2016", fec, "dd/MM/yyyy");
+                long dias_desde = 1 + mat.Daybetween("1/11/2016", fec, "dd/MM/yyyy");
                 String[] res = mat.CalcularTurno((int)dias_desde);
                 datos = res;
                 rellenaCampos(fec, res);
+                ArrayList<String> parejas_datos = new ArrayList<>();
+                ArrayList<String> turnos_datos = new ArrayList<>();
+
+                //ArrayList<String> misdatos = new ArrayList<>();
+                int i = 2;
+                for (String s : res) {
+                    if (i % 2 ==1) {
+                        turnos_datos.add(s);
+                    } else {
+                        parejas_datos.add(s);
+                    }
+                    i++;
+                    //misdatos.add(s);
+                }
+                adapter.getData().clear();
+                paradapter.getData().clear();
+                adapter.getData().addAll(turnos_datos);
+                paradapter.getData().addAll(parejas_datos);
+                adapter.notifyDataSetChanged();
+                paradapter.notifyDataSetChanged();
                 //onRestart();
             }
         });
@@ -155,26 +232,26 @@ public class TurnosActivity extends AppCompatActivity {
         } catch (ParseException e) {
             Log.e("TAG", "error");
         }
-        TextView emp01 = (TextView)findViewById(R.id.mananaempleado1View);
-        TextView emp02 = (TextView)findViewById(R.id.mananaempleado2View);
-        TextView emp03 = (TextView)findViewById(R.id.mananaempleado3View);
-        TextView emp04 = (TextView)findViewById(R.id.mananaempleado4View);
-        TextView emp05 = (TextView)findViewById(R.id.mananaempleado5View);
-        TextView emp06 = (TextView)findViewById(R.id.mananaempleado6View);
-        TextView emp07 = (TextView)findViewById(R.id.mananaempleado7View);
-        TextView emp08 = (TextView)findViewById(R.id.mananaempleado8View);
-        TextView emp09 = (TextView)findViewById(R.id.mananaempleado9View);
-        TextView emp10 = (TextView)findViewById(R.id.mananaempleado10View);
-        if((datos != null ? datos[0] : null) != null) emp01.setText(datos[0]);
-        if((datos != null ? datos[1] : null) != null) emp02.setText(datos[1]);
-        if((datos != null ? datos[2] : null) != null) emp03.setText(datos[2]);
-        if((datos != null ? datos[3] : null) != null) emp04.setText(datos[3]);
-        if((datos != null ? datos[4] : null) != null) emp05.setText(datos[4]);
-        if((datos != null ? datos[5] : null) != null) emp06.setText(datos[5]);
-        if((datos != null ? datos[6] : null) != null) emp07.setText(datos[6]);
-        if((datos != null ? datos[7] : null) != null) emp08.setText(datos[7]);
-        if((datos != null ? datos[8] : null) != null) emp09.setText(datos[8]);
-        if((datos != null ? datos[9] : null) != null) emp10.setText(datos[9]);
+//        TextView emp01 = (TextView)findViewById(R.id.mananaempleado1View);
+//        TextView emp02 = (TextView)findViewById(R.id.mananaempleado2View);
+//        TextView emp03 = (TextView)findViewById(R.id.mananaempleado3View);
+//        TextView emp04 = (TextView)findViewById(R.id.mananaempleado4View);
+//        TextView emp05 = (TextView)findViewById(R.id.mananaempleado5View);
+//        TextView emp06 = (TextView)findViewById(R.id.mananaempleado6View);
+//        TextView emp07 = (TextView)findViewById(R.id.mananaempleado7View);
+//        TextView emp08 = (TextView)findViewById(R.id.mananaempleado8View);
+//        TextView emp09 = (TextView)findViewById(R.id.mananaempleado9View);
+//        TextView emp10 = (TextView)findViewById(R.id.mananaempleado10View);
+//        if((datos != null ? datos[0] : null) != null) emp01.setText(datos[0]);
+//        if((datos != null ? datos[1] : null) != null) emp02.setText(datos[1]);
+//        if((datos != null ? datos[2] : null) != null) emp03.setText(datos[2]);
+//        if((datos != null ? datos[3] : null) != null) emp04.setText(datos[3]);
+//        if((datos != null ? datos[4] : null) != null) emp05.setText(datos[4]);
+//        if((datos != null ? datos[5] : null) != null) emp06.setText(datos[5]);
+//        if((datos != null ? datos[6] : null) != null) emp07.setText(datos[6]);
+//        if((datos != null ? datos[7] : null) != null) emp08.setText(datos[7]);
+//        if((datos != null ? datos[8] : null) != null) emp09.setText(datos[8]);
+//        if((datos != null ? datos[9] : null) != null) emp10.setText(datos[9]);
     }
     private String unDiaMenos(String fec) {
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");

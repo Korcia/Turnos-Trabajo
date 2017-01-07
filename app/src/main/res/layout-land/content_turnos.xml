@@ -1,0 +1,314 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    >
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp">
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="es.net_tel.turnostrabajo.TurnosActivity"
+    tools:showIn="@layout/activity_turnos"
+    android:baselineAligned="false">
+
+    <TableRow
+        android:id="@+id/fila1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+    <TextView
+        android:id="@+id/fechaView"
+        android:layout_column="0"
+        android:textColor="@android:color/holo_red_dark" />
+    </TableRow>
+
+    <TableRow
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <Space
+            android:layout_width="20dp"
+            android:layout_height="15dp"
+            android:layout_column="0" />
+    </TableRow>
+
+    <TableRow
+        android:id="@+id/fila3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/monsoon">
+
+        <TextView
+            android:text="@string/manana_turnos_activity"
+            android:id="@+id/mananatextView"
+            android:textSize="20dp"
+            android:textColor="@android:color/white"
+            android:paddingLeft="125sp"
+            android:paddingStart="125sp"
+            android:layout_column="0" />
+    </TableRow>
+
+    <TableRow
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <Space
+            android:layout_width="20dp"
+            android:layout_height="15dp"
+            android:layout_column="0" />
+    </TableRow>
+
+    <TableRow
+        android:id="@+id/fila4"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/mananaempleado1View"
+            android:textColor="@color/turnosazul"
+            android:textSize="20dp"
+            android:paddingStart="10sp"
+            android:paddingLeft="10sp"
+
+            android:layout_width="wrap_content" />
+
+        <TextView
+            android:id="@+id/mananaempleado2View"
+            android:textColor="@color/turnosazul"
+            android:textSize="20dp"
+            android:layout_width="wrap_content" />
+
+    </TableRow>
+
+    <TableRow
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <Space
+            android:layout_width="20dp"
+            android:layout_height="15dp"
+            android:layout_column="0" />
+    </TableRow>
+
+    <TableRow
+        android:id="@+id/fila6"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/mananaempleado3View"
+            android:textColor="@color/turnosazul"
+            android:paddingStart="10sp"
+            android:paddingLeft="10sp"
+            android:textSize="20dp"
+            android:layout_width="wrap_content" />
+
+        <TextView
+            android:id="@+id/mananaempleado4View"
+            android:textColor="@color/turnosazul"
+            android:textSize="20dp"
+            android:layout_width="wrap_content" />
+
+    </TableRow>
+
+    <TableRow
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <Space
+            android:layout_width="20dp"
+            android:layout_height="15dp"
+            android:layout_column="0" />
+    </TableRow>
+
+    <TableRow
+        android:id="@+id/fila8"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/monsoon">
+
+        <TextView
+            android:text="@string/tarde_turnos_activity"
+            android:id="@+id/tardetextView"
+            android:textSize="20dp"
+            android:paddingStart="130sp"
+            android:paddingLeft="130sp"
+            android:textColor="@android:color/white"
+            android:layout_column="0" />
+
+    </TableRow>
+
+    <TableRow
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <Space
+            android:layout_width="20dp"
+            android:layout_height="15dp"
+            android:layout_column="0" />
+    </TableRow>
+
+    <TableRow
+        android:id="@+id/fila10"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/mananaempleado5View"
+            android:textColor="@color/turnosazul"
+            android:paddingStart="10sp"
+            android:paddingLeft="10sp"
+            android:textSize="20dp"
+            android:layout_width="wrap_content" />
+
+        <TextView
+            android:id="@+id/mananaempleado6View"
+            android:textColor="@color/turnosazul"
+            android:textSize="20dp"
+            android:layout_width="wrap_content" />
+
+    </TableRow>
+
+    <TableRow
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <Space
+            android:layout_width="20dp"
+            android:layout_height="15dp"
+            android:layout_column="0" />
+    </TableRow>
+
+    <TableRow
+        android:id="@+id/fila12"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/mananaempleado7View"
+            android:textColor="@color/turnosazul"
+            android:paddingStart="10sp"
+            android:paddingLeft="10sp"
+            android:textSize="20dp"
+            android:layout_width="wrap_content" />
+
+        <TextView
+            android:id="@+id/mananaempleado8View"
+            android:textColor="@color/turnosazul"
+            android:textSize="20dp"
+            android:layout_width="wrap_content" />
+
+    </TableRow>
+
+    <TableRow
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <Space
+            android:layout_width="20dp"
+            android:layout_height="15dp"
+            android:layout_column="0" />
+    </TableRow>
+
+    <TableRow
+        android:id="@+id/fila14"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/monsoon">
+
+        <TextView
+            android:text="@string/noche_turnos_activity"
+            android:id="@+id/nochetextView"
+            android:textSize="20dp"
+            android:paddingStart="130sp"
+            android:paddingLeft="130sp"
+            android:textColor="@android:color/white"
+            android:layout_column="0" />
+
+    </TableRow>
+
+    <TableRow
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <Space
+            android:layout_width="20dp"
+            android:layout_height="15dp"
+            android:layout_column="0" />
+    </TableRow>
+
+    <TableRow
+        android:id="@+id/fila16"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/mananaempleado9View"
+            android:textColor="@color/turnosazul"
+            android:layout_width="wrap_content"
+            android:textSize="20dp"
+            android:paddingStart="10sp"
+            android:paddingLeft="10sp"
+            android:paddingRight="30dp"
+            android:paddingEnd="30dp" />
+
+        <TextView
+            android:id="@+id/mananaempleado10View"
+            android:textColor="@color/turnosazul"
+            android:textSize="20dp"
+            android:layout_width="wrap_content" />
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <Space
+                android:layout_width="20dp"
+                android:layout_height="15dp"
+                android:layout_column="0" />
+        </TableRow>
+
+    </TableRow>
+
+</TableLayout>
+    </LinearLayout>
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingRight="@dimen/activity_horizontal_margin"
+        >
+
+        <Button
+            android:id="@+id/boton_dia_anterior"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Anterior"
+            />
+
+        <Button
+            android:id="@+id/boton_dia_siguiente"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Siguiente"
+            />
+
+    </LinearLayout>
+
+</LinearLayout>

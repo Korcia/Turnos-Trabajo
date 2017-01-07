@@ -30,19 +30,16 @@ import butterknife.ButterKnife;
 import butterknife.OnCheckedChanged;
 import butterknife.OnClick;
 
-/**
- * Shows off the most basic usage
- */
 public class MaterialCalendarioActivity extends AppCompatActivity implements OnDateSelectedListener, OnMonthChangedListener {
 
     private static final DateFormat FORMATTER = new SimpleDateFormat("dd/MM/yyyy", Locale.ENGLISH);
     private static final String TAG = "CalendarioActivity";
-    private int GRUPOS = 7;
-    private int PORGRUPO = 2;
-    private int LONGPATRON = 98;
-    private int TIPOSTURNOS = 3;
+    private int GRUPOS = 8;
+    //private int PORGRUPO = 2;
+    private int LONGPATRON = 56;
+    private int TIPOSTURNOS = 13;
     private int MAXYEAR = 0x834;
-    private String diauno = "07/03/2016";
+    private String diauno = "01/11/2016";
 
     @Bind(R.id.materialcalendarView)
     MaterialCalendarView calendario;
@@ -93,7 +90,7 @@ public class MaterialCalendarioActivity extends AppCompatActivity implements OnD
                 String fecha_seleccionada;
                 String[] resultado_turnos; // = new String[10];
                 calendario.setSelectedDate(CalendarDay.from(year, monthOfYear, dayOfMonth));
-                long dias_desde = 1 + Daybetween("7/3/2016", getSelectedDatesString(), "dd/MM/yyyy");
+                long dias_desde = 1 + Daybetween("1/11/2016", getSelectedDatesString(), "dd/MM/yyyy");
                 //Toast.makeText(getBaseContext(), "Días desde:\n\n" + (int) dias_desde, Toast.LENGTH_LONG).show();
                 //Toast.makeText(getBaseContext(), "getselecteddate:\n\n" + getSelectedDatesString(), Toast.LENGTH_LONG).show();
                 resultado_turnos = CalcularTurno((int) dias_desde);
@@ -126,7 +123,7 @@ public class MaterialCalendarioActivity extends AppCompatActivity implements OnD
         String fecha_seleccionada;
         String[] resultado_turnos = new String[10];
         calendario.setSelectedDate(CalendarDay.from(fecha_selec.getYear(), fecha_selec.getMonth(), fecha_selec.getDay()));
-        long dias_desde = 1 + Daybetween("7/3/2016", getSelectedDatesString(), "dd/MM/yyyy");
+        long dias_desde = 1 + Daybetween("1/11/2016", getSelectedDatesString(), "dd/MM/yyyy");
         //Toast.makeText(getBaseContext(), "Días desde:\n\n" + (int) dias_desde, Toast.LENGTH_LONG).show();
         resultado_turnos = CalcularTurno((int) dias_desde);
         Intent i = new Intent(MaterialCalendarioActivity.this, TurnosActivity.class);
@@ -184,14 +181,18 @@ public class MaterialCalendarioActivity extends AppCompatActivity implements OnD
     }
     public String[] CalcularTurno(int diaspasados) {
 
-        //String[] tipoturno = {"Mañana", "Tarde", "Noche"};
-        String[][] miembros = {{"Antonia", "Paqui"}, {"Chon", "Mariló"}, {"Fran", "Mara"}, {"Eli", "Mónica"}, {"Ismael", "Carmen"}, {"Mª del Carmen", "Marta"}, {"Sandra", "Sonia"}};
-        String[] resultado = new String[10];
-        //String [] resultado_tarde = new resultado_tarde [4];
-        //String [] resultado_noche = new resultado_noche [2];
-        int[][] patron = {{5, 6, 5, 6, 5, 6, 5, 6, 5, 6, 6, 7, 6, 7, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 2, 3, 2, 3, 4, 7, 4, 7, 4, 7, 4, 7, 4, 7, 5, 7, 5, 7, 3, 6, 3, 6, 3, 6, 3, 6, 3, 6, 1, 3, 1, 3, 2, 5, 2, 5, 2, 5, 2, 5, 2, 5, 5, 4, 5, 4, 1, 7, 1, 7, 1, 7, 1, 7, 1, 7, 1, 6, 1, 6, 3, 4, 3, 4, 3, 4, 3, 4, 3, 4, 2, 4, 2, 4},
-                {1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 6, 7, 6, 7, 4, 7, 4, 7, 4, 7, 4, 7, 4, 7, 2, 3, 2, 3, 3, 6, 3, 6, 3, 6, 3, 6, 3, 6, 5, 7, 5, 7, 2, 5, 2, 5, 2, 5, 2, 5, 2, 5, 1, 3, 1, 3, 1, 7, 1, 7, 1, 7, 1, 7, 1, 7, 5, 4, 5, 4, 3, 4, 3, 4, 3, 4, 3, 4, 3, 4, 1, 6, 1, 6, 5, 6, 5, 6, 5, 6, 5, 6, 5, 6, 2, 4, 2, 4},
-                {3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 4, 4, 4, 4, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 6, 6, 6, 6, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 7, 7, 7, 7, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 3, 3, 3, 3, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 5, 5, 5, 5, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 1, 1, 1, 1}};
+        String[] miembros = { "Ismael / Juani", "Mariló / Fco Manuel", "Paqui / Alicia", "Chon / Fran", "Carmen / Juana", "Antonia / Mari Carmen", "Eli / Marta", "Mara / Mónica"};
+        String[] resultado = new String[16];
+        String[] tipoturno = {"Libranza (24 h.)","Libranza (18 h.)","Libranza (15 h.)","08:00 a 15:00","06:00 a 14:00","14:00 a 22:00","15:00 a 21:00","22:00 a 06:00","21:00 a 09:00","21:00 a 06:00","08:00 a 12:00 / 18:00 a 21:00","08:00 a 14:00 / 20:00 a 22:00","09:00 a 21:00"};
+        int[][] patron =
+                {{0,0,6,6,6,12,9,1,6,10,10,10,0,12,5,5,5,5,5,0,0,10,10,3,3,0,12,0,4,4,4,4,3,0,0,7,7,1,0,8,8,2,6,3,0,0,4,11,11,3,0,7,7,1,0,12},
+                        {1,6,10,10,10,0,12,5,5,5,5,5,0,0,10,10,3,3,0,12,0,4,4,4,4,3,0,0,7,7,1,0,8,8,2,6,3,0,0,4,11,11,3,0,7,7,1,0,12,0,0,6,6,6,12,9},
+                        {5,5,5,5,5,0,0,10,10,3,3,0,12,0,4,4,4,4,3,0,0,7,7,1,0,8,8,2,6,3,0,0,4,11,11,3,0,7,7,1,0,12,0,0,6,6,6,12,9,1,6,10,10,10,0,12},
+                        {10,10,3,3,0,12,0,4,4,4,4,3,0,0,7,7,1,0,8,8,2,6,3,0,0,4,11,11,3,0,7,7,1,0,12,0,0,6,6,6,12,9,1,6,10,10,10,0,12,5,5,5,5,5,0,0},
+                        {4,4,4,4,3,0,0,7,7,1,0,8,8,2,6,3,0,0,4,11,11,3,0,7,7,1,0,12,0,0,6,6,6,12,9,1,6,10,10,10,0,12,5,5,5,5,5,0,0,10,10,3,3,0,12,0},
+                        {7,7,1,0,8,8,2,6,3,0,0,4,11,11,3,0,7,7,1,0,12,0,0,6,6,6,12,9,1,6,10,10,10,0,12,5,5,5,5,5,0,0,10,10,3,3,0,12,0,4,4,4,4,3,0,0},
+                        {6,3,0,0,4,11,11,3,0,7,7,1,0,12,0,0,6,6,6,12,9,1,6,10,10,10,0,12,5,5,5,5,5,0,0,10,10,3,3,0,12,0,4,4,4,4,3,0,0,7,7,1,0,8,8,2},
+                        {3,0,7,7,1,0,12,0,0,6,6,6,12,9,1,6,10,10,10,0,12,5,5,5,5,5,0,0,10,10,3,3,0,12,0,4,4,4,4,3,0,0,7,7,1,0,8,8,2,6,3,0,0,4,11,11}};
         int i, j, k, l, x, signal;
         int bloques = 0, resto = 0;
         int indice = 0;
@@ -201,29 +202,37 @@ public class MaterialCalendarioActivity extends AppCompatActivity implements OnD
         //int hanpasado = 27;
         hanpasado = diaspasados;
         //System.out.println("Fecha inicial: " + diauno);
-        bloques = hanpasado / (LONGPATRON / PORGRUPO);
+        bloques = hanpasado / LONGPATRON;
         String bloquesAsString = Integer.toString(bloques);
         //System.out.println("Bloques: " + bloquesAsString);
-        resto = hanpasado % (LONGPATRON / PORGRUPO);
+        resto = hanpasado % LONGPATRON;
         String restoAsString = Integer.toString(resto);
         //System.out.println("Desplazaminto último bloque: " + restoAsString);
-        indice = (resto == 0) ? LONGPATRON - PORGRUPO : resto * PORGRUPO - PORGRUPO;
-        for (i = 0; i < TIPOSTURNOS; i++) {
+        //indice = (resto == 0) ? LONGPATRON - PORGRUPO : resto * PORGRUPO - PORGRUPO;
+//        for (i = 0; i < TIPOSTURNOS; i++) {
+//            //System.out.println(tipoturno[i]);
+//            for (j = 0; j < PORGRUPO; j++) {
+//                x = patron[i][indice + j] - 1;
+//                signal = -1;
+//                for (l = 0; l < j; l++) {
+//                    if (patron[i][indice + l] - 1 == x) signal = 1;
+//                }
+//                if (signal == -1) {
+//                    for (k = 0; k < PORGRUPO; k++) {
+//                        //System.out.println(miembros[x][k]);
+//                        resultado[z] = miembros[x][k];
+//                        z++;
+//                    }
+//                }
+//            }
+//        }
+        for (i = 0; i < GRUPOS; i++) {
             //System.out.println(tipoturno[i]);
-            for (j = 0; j < PORGRUPO; j++) {
-                x = patron[i][indice + j] - 1;
-                signal = -1;
-                for (l = 0; l < j; l++) {
-                    if (patron[i][indice + l] - 1 == x) signal = 1;
-                }
-                if (signal == -1) {
-                    for (k = 0; k < PORGRUPO; k++) {
-                        //System.out.println(miembros[x][k]);
-                        resultado[z] = miembros[x][k];
-                        z++;
-                    }
-                }
-            }
+            indice = patron[i][resto];
+            resultado[z] = miembros[i];
+            z++;
+            resultado[z] = tipoturno[indice];
+            z++;
         }
         //for (w = 0; w < 10; w++) System.out.println(resultado[w]);
         return resultado;
